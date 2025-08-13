@@ -1,7 +1,11 @@
 # Copyright 2025 - David Brown <d.brown@bigdavedev.com>
 # SPDX-License-Identifier: MIT
 
+add_subdirectory (service)
+add_subdirectory (logging)
+
 add_executable (yasic)
+
 
 target_sources (
 	yasic
@@ -23,5 +27,6 @@ target_link_libraries (
 
 	PUBLIC
 	Yasic::CompilerFlags
+	Yasic::Logging
 	SDL3::SDL3
 )
