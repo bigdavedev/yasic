@@ -11,8 +11,13 @@
 #include "spdlog/common.h"
 #include "spdlog/logger.h"
 #include "spdlog/sinks/basic_file_sink.h"
-#include "spdlog/sinks/msvc_sink.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+
+#ifdef WIN32
+  #include "spdlog/sinks/msvc_sink.h"
+  #include "spdlog/sinks/wincolor_sink.h"
+#else
+  #include "spdlog/sinks/stdout_color_sinks.h"
+#endif
 
 namespace yasic::logging
 {
@@ -21,7 +26,7 @@ spdlog_service::spdlog_service(std::string const& context)
 	std::vector<spdlog::sink_ptr> const sinks{
 	    std::make_shared<spdlog::sinks::basic_file_sink_mt>(context + ".log"),
 #ifdef WIN32
-		std::make_shared<spdlog::sinks::wincolor_stdout_sink_mt>(),
+	    std::make_shared<spdlog::sinks::wincolor_stdout_sink_mt>(),
 	    std::make_shared<spdlog::sinks::msvc_sink_mt>(),
 #else
 	    std::make_shared<spdlog::sinks::stdout_color_sink_mt>(),
