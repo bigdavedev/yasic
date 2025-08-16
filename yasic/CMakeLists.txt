@@ -27,6 +27,7 @@ target_link_libraries (
 
 	PUBLIC
 	Yasic::CompilerFlags
+	Yasic::Service
 	Yasic::Logging
 	SDL3::SDL3
 )

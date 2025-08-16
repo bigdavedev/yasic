@@ -5,10 +5,10 @@
 #include "yasic/logging/log_service.h"
 #include "yasic/service/service.h"
 
-#include "spdlog/logger.h"
-
 #include <memory>
 #include <string>
+
+#include "spdlog/logger.h"
 
 namespace yasic::logging
 {
@@ -17,10 +17,10 @@ class spdlog_service : public yasic::service::service<logging_service>
 public:
 	explicit spdlog_service(std::string const& context);
 
-	void set_level(log_level const log_level) override;
+	void set_level(log_level log_level) override;
 
 private:
-	void log_impl(log_level const level, std::string const& message) override;
+	void log_impl(log_level level, std::string const& message) override;
 
 	std::shared_ptr<spdlog::logger> m_logger;
 };
