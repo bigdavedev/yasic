@@ -6,7 +6,7 @@ include (FetchContent)
 
 FetchContent_Declare (
     _doxygen_theme
-    URL https://github.com/jothepro/doxygen-awesome-css/archive/refs/tags/v2.2.1.zip
+    URL https://github.com/jothepro/doxygen-awesome-css/archive/refs/tags/v2.3.4.zip
 )
 FetchContent_MakeAvailable (_doxygen_theme)
 
@@ -33,7 +33,7 @@ set (DOXYGEN_HTML_EXTRA_STYLESHEET
 
 doxygen_add_docs (
     docs
-    ${PROJECT_SOURCE_DIR}/libs
+    ${PROJECT_SOURCE_DIR}/yasic
     ${PROJECT_SOURCE_DIR}/README.md
     ${PROJECT_SOURCE_DIR}/LICENSE.md
 )

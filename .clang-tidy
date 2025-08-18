@@ -13,6 +13,7 @@ Checks: >
   -cppcoreguidelines-pro-type-union-access,
   -darwin-*,
   -fuchsia-*,
+  -readability-avoid-const-params-in-decls,
   -linuxkernel-*,
   -llvm-*,
   -llvmlibc-*,
@@ -20,6 +21,7 @@ Checks: >
   -mpi-*,
   -objc-*,
   -openmp-*,
+  -performance-enum-size,
   -zircon-*,
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
@@ -72,7 +74,7 @@ CheckOptions:
   readability-identifier-naming.MethodCase: lower_case
   readability-identifier-naming.NamespaceCase: lower_case
   readability-identifier-naming.ParameterCase: lower_case
-  readability-identifier-naming.ParameterPackCase: CamelCase
+  readability-identifier-naming.ParameterPackCase: lower_case
   readability-identifier-naming.PointerParameterCase: lower_case
   readability-identifier-naming.PrivateMemberCase: lower_case
   readability-identifier-naming.PrivateMemberPrefix: m_

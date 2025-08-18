@@ -13,4 +13,6 @@ set (
 	-Wno-missing-prototypes
 	-Wno-weak-vtables
 	-Wno-global-constructors
+	-Wno-switch-default
+	-Wno-ctad-maybe-unsupported
 )

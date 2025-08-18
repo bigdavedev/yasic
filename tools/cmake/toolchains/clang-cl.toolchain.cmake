@@ -10,4 +10,9 @@ set (
 	-Wno-c++20-compat
 	-Wno-padded
 	-Wno-exit-time-destructors
+	-Wno-missing-prototypes
+	-Wno-weak-vtables
+	-Wno-global-constructors
+	-Wno-switch-default
+	-Wno-ctad-maybe-unsupported
 )

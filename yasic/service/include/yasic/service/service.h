@@ -16,8 +16,16 @@ class service_base
 public:
 	virtual ~service_base() = default;
 
+	service_base() = default;
+
+	service_base(service_base const&) = delete;
+	service_base& operator=(service_base const&) = delete;
+
+	service_base(service_base&&) = default;
+	service_base& operator=(service_base&&) = default;
+
 private:
-	virtual std::type_index type() const = 0;
+	[[nodiscard]] virtual std::type_index type() const = 0;
 };
 
 /**
@@ -29,7 +37,7 @@ template <typename T>
 class service : public T
 {
 	friend class service_locator;
-	std::type_index type() const override
+	[[nodiscard]] std::type_index type() const override
 	{
 		return std::type_index{typeid(T)};
 	}
