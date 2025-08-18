@@ -18,6 +18,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <string_view>
 
 namespace yasic::logging
 {
