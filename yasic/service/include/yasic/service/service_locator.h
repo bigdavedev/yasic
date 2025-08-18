@@ -36,7 +36,7 @@ public:
 		static_assert(std::is_base_of_v<service_base, T>,
 		              "T must derive from service_base");
 
-		// NOLINTNEXTLINE(clang-diagnostic-ctad-maybe-unsupported)
+		// NOLINTNEXTLINE(*ctad-maybe-unsupported)
 		std::scoped_lock const lock{m_mutex};
 
 		if (m_services.contains(service->type()))
@@ -55,7 +55,7 @@ public:
 	template <typename T>
 	void unregister_service()
 	{
-		// NOLINTNEXTLINE(clang-diagnostic-ctad-maybe-unsupported)
+		// NOLINTNEXTLINE(*ctad-maybe-unsupported)
 		std::scoped_lock const lock{m_mutex};
 
 		if (auto const type_index = std::type_index{typeid(T)};
@@ -74,7 +74,7 @@ public:
 	template <typename T>
 	std::shared_ptr<T> get_service() const
 	{
-		// NOLINTNEXTLINE(clang-diagnostic-ctad-maybe-unsupported)
+		// NOLINTNEXTLINE(*ctad-maybe-unsupported)
 		std::scoped_lock const lock{m_mutex};
 
 		if (auto const entry = m_services.find(std::type_index{typeid(T)});
