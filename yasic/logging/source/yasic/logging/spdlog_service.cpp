@@ -45,7 +45,7 @@ void spdlog_service::log_impl(context const&     ctx,
 		// NOLINTNEXTLINE(clang-diagnostic-switch-default)
 		switch (level)
 		{
-			using enum log_level;
+			using enum yasic::logging::log_level;
 		case trace: logger->second->trace(message); break;
 		case debug: logger->second->debug(message); break;
 		case info: logger->second->info(message); break;
@@ -64,7 +64,7 @@ void spdlog_service::set_level(context const& ctx, log_level const log_level)
 		// NOLINTNEXTLINE(clang-diagnostic-switch-default)
 		switch (log_level)
 		{
-			using enum log_level;
+			using enum yasic::logging::log_level;
 		case trace: logger->second->set_level(spdlog::level::trace); break;
 		case debug: logger->second->set_level(spdlog::level::debug); break;
 		case info: logger->second->set_level(spdlog::level::info); break;
@@ -89,10 +89,19 @@ logging_service::context spdlog_service::create_context(std::string const& name)
 {
 	if (!m_logger_registry.contains(name))
 	{
-		m_logger_registry
-		    .try_emplace(name, std::make_shared<spdlog::logger>(name))
-		    .first->second->sinks()
-		    .append_range(m_shared_sinks);
+		auto const [entry, result] = m_logger_registry.try_emplace(
+		    name,
+		    std::make_shared<spdlog::logger>(name));
+
+		if (result)
+		{
+			auto const& logger = entry->second;
+
+			auto& sinks = logger->sinks();
+			sinks.insert(std::end(sinks),
+			             std::begin(m_shared_sinks),
+			             std::end(m_shared_sinks));
+		}
 	}
 	return context{name};
 }
