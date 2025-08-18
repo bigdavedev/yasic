@@ -102,7 +102,7 @@ IncludeCategories:
     Priority:        1
     CaseSensitive:   true
     # Yasic dedendencies
-  - Regex:           '("(SDL*|glm|entt|nlohmann|stb))'
+  - Regex:           '("(SDL*|glm|entt|nlohmann|stb|spdlog|fmt))'
     Priority:        2
     CaseSensitive:   true
     # C++ standard library headers.

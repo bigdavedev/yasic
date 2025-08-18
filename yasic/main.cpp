@@ -18,11 +18,16 @@ int main(int argc, char* argv[])
 	auto service_locator = yasic::service::service_locator{};
 
 	service_locator.register_service(
-	    std::make_shared<yasic::logging::spdlog_service>("Yasic"));
+	    std::make_shared<yasic::logging::spdlog_service>("Yasic.log"));
+	auto const logging_service =
+	    service_locator.get_service<yasic::logging::logging_service>();
+
+	auto const main_log_context = logging_service->create_context("main");
 
 	if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD | SDL_INIT_AUDIO))
 	{
 		service_locator.get_service<yasic::logging::logging_service>()->log(
+		    main_log_context,
 		    yasic::logging::log_level::fatal,
 		    "Failed to initialize SDL: {}",
 		    SDL_GetError());

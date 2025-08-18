@@ -23,6 +23,23 @@ enum class log_level
 class logging_service : public yasic::service::service_base
 {
 public:
+	class context final
+	{
+		std::string m_name{};
+
+	public:
+		explicit context(std::string const& name)
+		    : m_name(name)
+		{}
+
+		context() = delete;
+
+		std::string_view name() const
+		{
+			return m_name;
+		}
+	};
+
 	/**
 	 * Log a message with the specified log level.
 	 *
@@ -31,17 +48,23 @@ public:
 	 * @param args Any arguments for the formatted string.
 	 */
 	template <typename... Args>
-	void log(log_level const               level,
+	void log(context const&                ctx,
+	         log_level const               level,
 	         fmt::format_string<Args...>&& msg,
 	         Args&&... args)
 	{
-		log_impl(level, fmt::format(std::move(msg), std::forward<Args>(args)...));
+		log_impl(ctx,
+		         level,
+		         fmt::format(std::move(msg), std::forward<Args>(args)...));
 	}
 
-	virtual void set_level(log_level const log_level) = 0;
+	virtual void set_level(context const& ctx, log_level log_level) = 0;
+
+	virtual context create_context(std::string const& name) = 0;
 
 private:
-	virtual void log_impl(log_level const level, std::string const& message) = 0;
-
+	virtual void log_impl(context const&     ctx,
+	                      log_level          level,
+	                      std::string const& message) = 0;
 };
 } // namespace yasic::logging
