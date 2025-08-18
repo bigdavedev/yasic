@@ -58,10 +58,10 @@ private:
 	{
 		using is_transparent = void;
 
-		std::size_t operator()(std::string_view const s) const
+		std::size_t operator()(std::string_view const string) const
 		{
 			constexpr std::hash<std::string_view> hasher{};
-			return hasher(s);
+			return hasher(string);
 		}
 	};
 

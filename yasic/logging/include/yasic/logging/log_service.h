@@ -7,6 +7,7 @@
 #include "fmt/format.h"
 
 #include <string>
+#include <string_view>
 
 namespace yasic::logging
 {
@@ -25,7 +26,7 @@ class logging_service : public yasic::service::service_base
 public:
 	class context final
 	{
-		std::string m_name{};
+		std::string m_name;
 
 	public:
 		explicit context(std::string_view const name)
