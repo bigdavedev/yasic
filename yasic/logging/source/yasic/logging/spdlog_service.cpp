@@ -85,23 +85,16 @@ void spdlog_service::add_sink(context const&          ctx,
 	}
 }
 
-logging_service::context spdlog_service::create_context(std::string const& name)
+logging_service::context
+spdlog_service::create_context(std::string_view const name)
 {
 	if (!m_logger_registry.contains(name))
 	{
-		auto const [entry, result] = m_logger_registry.try_emplace(
-		    name,
-		    std::make_shared<spdlog::logger>(name));
-
-		if (result)
-		{
-			auto const& logger = entry->second;
-
-			auto& sinks = logger->sinks();
-			sinks.insert(std::end(sinks),
-			             std::begin(m_shared_sinks),
-			             std::end(m_shared_sinks));
-		}
+		m_logger_registry.try_emplace(
+		    std::string{name},
+		    std::make_shared<spdlog::logger>(std::string{name},
+		                                     std::begin(m_shared_sinks),
+		                                     std::end(m_shared_sinks)));
 	}
 	return context{name};
 }

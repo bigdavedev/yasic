@@ -4,9 +4,9 @@
 
 #include "yasic/service/service.h"
 
-#include <string>
-
 #include "fmt/format.h"
+
+#include <string>
 
 namespace yasic::logging
 {
@@ -28,12 +28,13 @@ public:
 		std::string m_name{};
 
 	public:
-		explicit context(std::string const& name)
-		    : m_name(name)
+		explicit context(std::string_view const name)
+		    : m_name{name}
 		{}
 
 		context() = delete;
 
+		[[nodiscard]]
 		std::string_view name() const
 		{
 			return m_name;
@@ -43,6 +44,7 @@ public:
 	/**
 	 * Log a message with the specified log level.
 	 *
+	 * @param ctx The logging context to use.
 	 * @param level The log level to use.
 	 * @param msg The formatted message to log.
 	 * @param args Any arguments for the formatted string.
@@ -58,9 +60,23 @@ public:
 		         fmt::format(std::move(msg), std::forward<Args>(args)...));
 	}
 
+	/**
+	 * Set the minimum log level for a specific context.
+	 *
+	 * @param ctx Context for which to set the log level.
+	 * @param log_level Level to set for the context.
+	 */
 	virtual void set_level(context const& ctx, log_level log_level) = 0;
 
-	virtual context create_context(std::string const& name) = 0;
+	/**
+	 * Create a new logging context with the specified name.
+	 *
+	 * In order to log messages, you must first create a context.
+	 *
+	 * @param name Name of the context to create.
+	 * @return A new logging context.
+	 */
+	virtual context create_context(std::string_view name) = 0;
 
 private:
 	virtual void log_impl(context const&     ctx,

@@ -32,22 +32,14 @@ public:
 	explicit spdlog_service(std::string_view log_file_name);
 
 	/**
-	 * Set the minimum log level for a specific context.
-	 *
-	 * @param ctx Context for which to set the log level.
-	 * @param log_level Level to set for the context.
+	 * @copydoc {yasic::logging::logging_service::set_level}
 	 */
 	void set_level(context const& ctx, log_level log_level) override;
 
 	/**
-	 * Create a new logging context with the specified name.
-	 *
-	 * In order to log messages, you must first create a context.
-	 *
-	 * @param name Name of the context to create.
-	 * @return A new logging context.
+	 * @copydoc{yasic::logging::logging_service::create_context}
 	 */
-	context create_context(std::string const& name) override;
+	context create_context(std::string_view name) override;
 
 	/**
 	 * Add a sink to the logging service.
