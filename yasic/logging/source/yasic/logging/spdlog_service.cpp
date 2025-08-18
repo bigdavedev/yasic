@@ -19,6 +19,8 @@
   #include "spdlog/sinks/stdout_color_sinks.h"
 #endif
 
+#include <vector>
+
 namespace yasic::logging
 {
 spdlog_service::spdlog_service(std::string const& context)
