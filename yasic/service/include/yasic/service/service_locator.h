@@ -36,7 +36,7 @@ public:
 		static_assert(std::is_base_of_v<service_base, T>,
 		              "T must derive from service_base");
 
-		std::lock_guard<std::mutex> const lock{m_mutex};
+		std::scoped_lock const lock{m_mutex};
 
 		if (m_services.contains(service->type()))
 		{
@@ -54,7 +54,7 @@ public:
 	template <typename T>
 	void unregister_service()
 	{
-		std::lock_guard<std::mutex> const lock{m_mutex};
+		std::scoped_lock const lock{m_mutex};
 
 		if (auto const type_index = std::type_index{typeid(T)};
 		    m_services.contains(type_index))
@@ -72,7 +72,7 @@ public:
 	template <typename T>
 	std::shared_ptr<T> get_service() const
 	{
-		std::lock_guard<std::mutex> const lock{m_mutex};
+		std::scoped_lock const lock{m_mutex};
 
 		if (auto const entry = m_services.find(std::type_index{typeid(T)});
 		    entry != m_services.end())
