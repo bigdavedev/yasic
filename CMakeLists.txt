@@ -7,11 +7,11 @@ list (PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/tools/cmake)
 include (InstallBuildTools)
 
 project (
-	HelloSDL
+	Yasic
 	VERSION 0.1.0
 	LANGUAGES C CXX
-	DESCRIPTION "Template for creating SDL applications"
-	HOMEPAGE_URL "https://github.com/PterabyteGames/cpp-sdl-template.git"
+	DESCRIPTION "Yet Another Space Invaders Clone"
+	HOMEPAGE_URL "https://github.com/bigdavedev/yasic.git"
 )
 
 option (YASIC_BUILD_DOCS "Generate documentation" OFF)

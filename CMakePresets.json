@@ -14,7 +14,17 @@
 			"name": "dev-default",
 			"displayName": "Default configuration for developers",
 			"binaryDir": "build/${presetName}",
-			"hidden": true
+			"hidden": true,
+			"inherits": [
+				"base",
+				"ninja"
+			],
+			"cacheVariables": {
+				"YASIC_BUILD_DOCS": {
+					"type": "BOOL",
+					"value": "TRUE"
+				}
+			}
 		},
 		{
 			"name": "ci-windows-vs2022-cl-ninja",
