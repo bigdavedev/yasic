@@ -30,6 +30,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Install Packages
+        run: |
+          sudo apt update
+          sudo apt install doxygen graphviz
+
       - name: Generate Docs
         run: cmake --workflow --preset ci-documentation
 
